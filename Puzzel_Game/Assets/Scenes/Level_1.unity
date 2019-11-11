@@ -3624,7 +3624,7 @@ PrefabInstance:
     - target: {fileID: 1763798077131355349, guid: 4be8acf43cc7e2c4b9ad6464eec9dba1,
         type: 3}
       propertyPath: pushPower
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4be8acf43cc7e2c4b9ad6464eec9dba1, type: 3}
@@ -4818,6 +4818,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974523670952623624, guid: c0d7d082018867944b236721334e79aa,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974523670952623624, guid: c0d7d082018867944b236721334e79aa,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0d7d082018867944b236721334e79aa, type: 3}
