@@ -8,6 +8,7 @@ public class MovePlatform : MonoBehaviour
     public bool moveZ;
     private bool moveDirection;
     private bool directionSet;
+    private bool firstIgnore;
 
     private Vector3 startPos;
     private Vector3 endPos;
@@ -25,8 +26,11 @@ public class MovePlatform : MonoBehaviour
         startPos = this.transform.Find ("MoveStartPos").transform.position;
         endPos = this.transform.Find ("MoveEndPos").transform.position;
 
-        Destroy (this.transform.Find ("MoveStartPos").gameObject);
-        Destroy (this.transform.Find ("MoveEndPos").gameObject);
+        Destroy (this.transform.Find ("MoveStartPos").GetComponent<MeshRenderer> ());
+        Destroy (this.transform.Find ("MoveEndPos").GetComponent<MeshRenderer> ());
+
+        this.transform.Find ("MoveStartPos").transform.SetParent(null);
+        this.transform.Find ("MoveEndPos").transform.SetParent (null);
 
         movePlatformValue = 0.0f;
 
@@ -43,32 +47,28 @@ public class MovePlatform : MonoBehaviour
     }
 
     private void MovingPlatform () {
+
         if (moveX == true) {
             speed -= Time.deltaTime;
             if (speed <= movePlatformValue) {
                 SetDirection ();
-                if (this.transform.position == endPos) {
-                    Debug.Log ("endpos");
-                    moveDirection = true;
-                } else if (this.transform.position == startPos) {
-                    Debug.Log ("startpos");
-                    moveDirection = false;
-                }
                 if (moveDirection == true) {
-                    Debug.Log ("true");
                     this.transform.position += moveXVector;
                 }else if (moveDirection == false) {
-                    Debug.Log ("false");
                     this.transform.position -= moveXVector;
                 }
                 speed = beginSpeed;
             }
-        }else if (moveZ == true) {
+        }
+        
+        else if (moveZ == true) {
             speed -= Time.deltaTime;
-            if (speed >= movePlatformValue) {
+            if (speed <= movePlatformValue) {
                 SetDirection ();
-                if (this.transform.position == endPos || this.transform.position == startPos) {
+                if (moveDirection == true) {
                     this.transform.position += moveZVector;
+                } else if (moveDirection == false) {
+                    this.transform.position -= moveZVector;
                 }
                 speed = beginSpeed;
             }
@@ -91,6 +91,26 @@ public class MovePlatform : MonoBehaviour
                 }
             }
             directionSet = true;
+        }
+    }
+
+    private void OnTriggerEnter (Collider other) {
+        if (other.CompareTag("MoveStartPos")) {
+            if (firstIgnore == true) {
+                if (moveDirection == true) {
+                    moveDirection = false;
+                } else {
+                    moveDirection = true;
+                }
+            } else {
+                firstIgnore = true;
+            }
+        } else if (other.CompareTag ("MoveEndPos")) {
+            if (moveDirection == true) {
+                moveDirection = false;
+            } else {
+                moveDirection = true;
+            }
         }
     }
 }

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3402903428904545435}
   - component: {fileID: 3402903428904545383}
   - component: {fileID: 3402903428904545381}
+  - component: {fileID: 8245805094129237948}
   m_Layer: 0
   m_Name: MoveStartPos
-  m_TagString: Untagged
+  m_TagString: MoveStartPos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,6 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &8245805094129237948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402903428904545434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3402903429000792881
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +104,7 @@ GameObject:
   - component: {fileID: 3402903429000792892}
   - component: {fileID: 3402903429000792883}
   - component: {fileID: 3402903429000792882}
+  - component: {fileID: 849387498529642109}
   m_Layer: 0
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -186,6 +201,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &849387498529642109
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402903429000792881}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3402903429075300668
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,9 +228,10 @@ GameObject:
   - component: {fileID: 3402903429075300669}
   - component: {fileID: 3402903429075300664}
   - component: {fileID: 3402903429075300671}
+  - component: {fileID: 9222808701653212822}
   m_Layer: 0
   m_Name: MoveEndPos
-  m_TagString: Untagged
+  m_TagString: MoveEndPos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,3 +295,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &9222808701653212822
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402903429075300668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: 0}
