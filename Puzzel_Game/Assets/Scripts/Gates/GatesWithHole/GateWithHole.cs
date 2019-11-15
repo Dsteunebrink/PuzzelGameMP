@@ -16,9 +16,9 @@ public class GateWithHole : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        endMark = this.transform.position - new Vector3 (0,3,0);
-
         gate = this.transform.Find ("Gate").gameObject;
+        endMark = gate.transform.position - new Vector3 (0, 3, 0);
+
         outlining = this.transform.Find ("Outline").gameObject;
     }
 
