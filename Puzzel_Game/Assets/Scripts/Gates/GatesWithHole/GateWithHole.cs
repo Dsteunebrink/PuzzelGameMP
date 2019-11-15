@@ -17,7 +17,7 @@ public class GateWithHole : MonoBehaviour
     void Start()
     {
         gate = this.transform.Find ("Gate").gameObject;
-        endMark = gate.transform.position - new Vector3 (0, 3, 0);
+        endMark = gate.transform.position - new Vector3 (0, 6, 0);
 
         outlining = this.transform.Find ("Outline").gameObject;
     }

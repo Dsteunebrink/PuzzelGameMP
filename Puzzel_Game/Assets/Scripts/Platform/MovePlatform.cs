@@ -34,8 +34,8 @@ public class MovePlatform : MonoBehaviour
 
         movePlatformValue = 0.0f;
 
-        moveXVector = new Vector3 (3,0,0);
-        moveZVector = new Vector3 (0,0,3);
+        moveXVector = new Vector3 (6,0,0);
+        moveZVector = new Vector3 (0,0,6);
 
         speed = beginSpeed;
     }
