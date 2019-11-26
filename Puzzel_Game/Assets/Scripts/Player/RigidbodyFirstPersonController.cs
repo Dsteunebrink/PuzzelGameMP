@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Contains the command the user wishes upon the character
 struct Cmd {
@@ -15,7 +16,10 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
     public float xMouseSensitivity = 30.0f;
     public float yMouseSensitivity = 30.0f;
 
+    private PushCubeBorder pushCubeBorder; // Check the direction for the push cube with an border
+
     public float pushPower = 2.0F; // The power wich the player is pushing the blocks
+    public float pullPower = 2.0F; // The power wich the player is pulling the blocks
 
     //
     /*Frame occuring factors*/
@@ -86,6 +90,11 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
         Time.timeScale = 1;
         AudioListener.volume = 1;
         stopCamera = false;
+
+        if (SceneManager.GetActiveScene().name != "Level1") {
+            // Find the object of the cube in the scene
+            pushCubeBorder = GameObject.Find ("PushCubeBorders").GetComponent<PushCubeBorder> ();
+        }
 
         // Set how the interval between steps
         m_StepInterval = 5f;
@@ -459,17 +468,50 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
         if (hit.moveDirection.y < -0.3f)
             return;
 
-        // Calculate push direction from move direction,
-        // we only push objects to the sides never up and down
-        Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
+        if (hit.gameObject.CompareTag("PushCube")) {
 
-        Debug.Log (pushDir);
+            // Calculate push direction from move direction,
+            // we only push objects to the sides never up and down
+            Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
 
-        // If you know how fast your character is trying to move,
-        // then you can also multiply the push velocity by that.
+            Debug.Log (pushDir);
 
-        // Apply the push
-        body.velocity = pushDir * pushPower;
+            // If you know how fast your character is trying to move,
+            // then you can also multiply the push velocity by that.
+
+            // Apply the push
+            body.velocity = pushDir * pushPower;
+        }else if (hit.gameObject.CompareTag("PushCubeBorder")) {
+            Debug.Log ("hi");
+            if (pushCubeBorder.moveX == true) {
+
+                // Calculate push direction from move direction,
+                // we only push objects to the sides never up and down
+                Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, 0);
+
+                Debug.Log (pushDir);
+
+                // If you know how fast your character is trying to move,
+                // then you can also multiply the push velocity by that.
+
+                // Apply the push
+                body.velocity = pushDir * pushPower;
+            } else if (pushCubeBorder.moveZ == true) {
+
+                // Calculate push direction from move direction,
+                // we only push objects to the sides never up and down
+                Vector3 pushDir = new Vector3 (0, 0, hit.moveDirection.z);
+
+                Debug.Log (pushDir);
+
+                // If you know how fast your character is trying to move,
+                // then you can also multiply the push velocity by that.
+
+                // Apply the push
+                body.velocity = pushDir * pushPower;
+            }
+        }
+
     }
 
     private void OnGUI () {

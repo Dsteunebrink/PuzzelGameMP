@@ -8,6 +8,7 @@ TagManager:
   - MoveEndPos
   - PushCube
   - GatesWithHole
+  - PushCubeBorder
   layers:
   - Default
   - TransparentFX
