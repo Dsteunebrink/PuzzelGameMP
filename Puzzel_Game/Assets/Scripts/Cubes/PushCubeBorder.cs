@@ -5,8 +5,8 @@ using UnityEngine;
 public class PushCubeBorder : MonoBehaviour
 {
 
-    private GameObject beginPos;
-    private GameObject endPos;
+    public GameObject beginPos;
+    public GameObject endPos;
 
     public bool moveX;
     public bool moveZ;
@@ -16,5 +16,11 @@ public class PushCubeBorder : MonoBehaviour
     {
         beginPos = this.transform.Find ("BeginPos").gameObject;
         endPos = this.transform.Find ("EndPos").gameObject;
+
+        Destroy (beginPos.GetComponent<MeshRenderer> ());
+        Destroy (endPos.GetComponent<MeshRenderer> ());
+
+        beginPos.transform.SetParent (null);
+        endPos.transform.SetParent (null);
     }
 }

@@ -17,6 +17,8 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
     public float yMouseSensitivity = 30.0f;
 
     private PushCubeBorder pushCubeBorder; // Check the direction for the push cube with an border
+    private Vector3 RevertPushCubeBorderPosZ; // Revert the position of the block to this pos
+    private Vector3 RevertPushCubeBorderPosX; // Revert the position of the block to this pos
 
     public float pushPower = 2.0F; // The power wich the player is pushing the blocks
     public float pullPower = 2.0F; // The power wich the player is pulling the blocks
@@ -90,6 +92,11 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
         Time.timeScale = 1;
         AudioListener.volume = 1;
         stopCamera = false;
+
+        Physics.IgnoreLayerCollision (0, 9);
+
+        RevertPushCubeBorderPosZ = new Vector3 (0,0,0.1f);
+        RevertPushCubeBorderPosX = new Vector3 (0.1f, 0, 0);
 
         if (SceneManager.GetActiveScene().name != "Level1") {
             // Find the object of the cube in the scene
@@ -460,6 +467,8 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
     void OnControllerColliderHit (ControllerColliderHit hit) {
         Rigidbody body = hit.collider.attachedRigidbody;
 
+        Debug.Log ("hi");
+
         // no rigidbody
         if (body == null || body.isKinematic)
             return;
@@ -482,7 +491,6 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
             // Apply the push
             body.velocity = pushDir * pushPower;
         }else if (hit.gameObject.CompareTag("PushCubeBorder")) {
-            Debug.Log ("hi");
             if (pushCubeBorder.moveX == true) {
 
                 // Calculate push direction from move direction,
@@ -493,7 +501,7 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
 
                 // If you know how fast your character is trying to move,
                 // then you can also multiply the push velocity by that.
-
+               
                 // Apply the push
                 body.velocity = pushDir * pushPower;
             } else if (pushCubeBorder.moveZ == true) {
@@ -506,12 +514,11 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
 
                 // If you know how fast your character is trying to move,
                 // then you can also multiply the push velocity by that.
-
+                
                 // Apply the push
                 body.velocity = pushDir * pushPower;
             }
         }
-
     }
 
     private void OnGUI () {
