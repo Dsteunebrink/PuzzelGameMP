@@ -467,8 +467,6 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
     void OnControllerColliderHit (ControllerColliderHit hit) {
         Rigidbody body = hit.collider.attachedRigidbody;
 
-        Debug.Log ("hi");
-
         // no rigidbody
         if (body == null || body.isKinematic)
             return;

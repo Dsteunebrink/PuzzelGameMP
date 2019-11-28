@@ -49,6 +49,7 @@ public class Teleporter : MonoBehaviour
             timer += Time.deltaTime;
 
             if (timer >= tpAllowed) {
+                timer = 0.0f;
                 teleporter1.teleport = false;
                 teleporter2.teleport = false;
                 waitForNextTP = false;

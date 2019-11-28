@@ -9,6 +9,7 @@ TagManager:
   - PushCube
   - GatesWithHole
   - PushCubeBorder
+  - Ladder
   layers:
   - Default
   - TransparentFX
