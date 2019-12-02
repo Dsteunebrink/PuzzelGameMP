@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 104634459}
   - component: {fileID: 104634462}
   m_Layer: 0
-  m_Name: Ladder (1)
+  m_Name: PickupLadder
   m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 141583452}
   - component: {fileID: 141583455}
   m_Layer: 0
-  m_Name: Ladder
+  m_Name: UseableLadder
   m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

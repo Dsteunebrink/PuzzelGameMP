@@ -8,17 +8,22 @@ public class LadderMan : MonoBehaviour
     private float ladderCount;
     public List<CheckColLadder> ladderList;
 
+    private PlaceLadder placingLadder;
+
     // Start is called before the first frame update
     void Start()
     {
+        placingLadder = GameObject.Find ("Player").GetComponent<PlaceLadder> ();
+
         ladderList = new List<CheckColLadder> ();
-        foreach (GameObject ladObj in GameObject.FindGameObjectsWithTag ("Ladder")) {
+        foreach (GameObject ladObj in GameObject.FindGameObjectsWithTag ("PickUpLadder")) {
             ladderList.Add (ladObj.GetComponent<CheckColLadder>());
         }
     }
 
     private void Update () {
         PickUpLadder ();
+        PlacingLadder ();
     }
 
     private void PickUpLadder () {
@@ -30,6 +35,18 @@ public class LadderMan : MonoBehaviour
             }
             if (i == ladderList.Count) {
                 i = 0;
+            }
+        }
+    }
+
+    private void PlacingLadder () {
+        if (ladderCount == 0) {
+            placingLadder.noLadders = true;
+            return;
+        } else{
+            placingLadder.noLadders = false;
+            if (placingLadder.ladderPlaced) {
+                ladderCount--;
             }
         }
     }
