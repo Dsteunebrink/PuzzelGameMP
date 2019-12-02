@@ -33,11 +33,15 @@ public class Teleporter : MonoBehaviour
     private void teleportPlayer () {
         if (waitForNextTP == false) {
             if (teleporter1.teleport == true) {
+                player.GetComponent<CharacterController> ().enabled = false;
                 player.transform.position = teleporter2.gameObject.transform.position;
+                player.GetComponent<CharacterController> ().enabled = true;
                 waitForNextTP = true;
                 teleporter1.teleport = false;
             } else if (teleporter2.teleport == true) {
+                player.GetComponent<CharacterController> ().enabled = false;
                 player.transform.position = teleporter1.gameObject.transform.position;
+                player.GetComponent<CharacterController> ().enabled = true;
                 waitForNextTP = true;
                 teleporter2.teleport = false;
             }
