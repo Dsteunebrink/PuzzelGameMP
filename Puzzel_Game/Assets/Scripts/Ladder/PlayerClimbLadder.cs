@@ -25,6 +25,7 @@ public class PlayerClimbLadder : MonoBehaviour
 
     private void OnTriggerEnter (Collider other) {
         if (other.gameObject.tag == "Ladder") {
+            Debug.Log ("in");
             chController.GetComponent<CharacterController> ().enabled = false;
             inside = true;
         }
@@ -32,6 +33,7 @@ public class PlayerClimbLadder : MonoBehaviour
 
     private void OnTriggerExit (Collider other) {
         if (other.gameObject.tag == "Ladder") {
+            Debug.Log ("out");
             chController.GetComponent<CharacterController> ().enabled = true;
             inside = false;
         }
