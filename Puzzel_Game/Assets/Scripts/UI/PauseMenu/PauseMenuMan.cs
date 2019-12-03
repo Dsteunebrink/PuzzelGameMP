@@ -35,21 +35,11 @@ public class PauseMenuMan : MonoBehaviour
         if (Input.GetKeyDown ("escape")) {
             //If the game is not paused pause it.
             if (gamePaused == false) {
-                pauseMenuPanel.SetActive (true);
-                Time.timeScale = 0;
-                AudioListener.volume = 0;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                player.stopCamera = true;
+                Pause ();
             }
             //If the game is paused resume it.
             if (gamePaused == true) {
-                Time.timeScale = 1;
-                AudioListener.volume = 1;
-                pauseMenuPanel.SetActive (false);
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.None;
-                player.stopCamera = false;
+                Resume ();
             }
         }
     }
@@ -65,14 +55,19 @@ public class PauseMenuMan : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void Pause () {
+        pauseMenuPanel.SetActive (true);
+        Time.timeScale = 0;
+        AudioListener.volume = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        player.stopCamera = true;
+    }
+
     //Set this function on the Restart button.
     public void Restart () {
         //Reloading current scene.
-        AudioListener.volume = 1;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        player.stopCamera = false;
-        Time.timeScale = 1;
+        Resume ();
         Scene scene = SceneManager.GetActiveScene (); SceneManager.LoadScene (scene.name);
     }
 
