@@ -41,8 +41,8 @@ public class LadderMan : MonoBehaviour
 
     private void PlacingLadder () {
         if (ladderCount == 0) {
+            Debug.Log (placingLadder.noLadders);
             placingLadder.noLadders = true;
-            return;
         } else{
             placingLadder.noLadders = false;
             if (placingLadder.ladderPlaced) {

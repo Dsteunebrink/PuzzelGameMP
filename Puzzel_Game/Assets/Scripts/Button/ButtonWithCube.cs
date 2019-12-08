@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ButtonWithCube : MonoBehaviour
 {
+    private bool colorChanged;
+
     private Vector3 startPos;
     private Vector3 endPos;
 
@@ -36,14 +38,14 @@ public class ButtonWithCube : MonoBehaviour
     }
 
     private void OnTriggerEnter (Collider other) {
-        if (other.CompareTag ("Player")) {
+        if (other.CompareTag ("Player") || other.CompareTag ("PushCube")) {
             goUp = true;
             goDown = false;
         }
     }
 
     private void OnTriggerExit (Collider other) {
-        if (other.CompareTag ("Player")) {
+        if (other.CompareTag ("Player") || other.CompareTag ("PushCube")) {
             goUp = false;
             goDown = true;
         }

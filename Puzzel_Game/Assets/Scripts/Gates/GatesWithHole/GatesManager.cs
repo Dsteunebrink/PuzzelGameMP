@@ -5,8 +5,8 @@ using UnityEngine;
 public class GatesManager : MonoBehaviour
 {
 
-    public List<Material> gateAndHoleMat;
-    public List<GameObject> gatesWithHoles;
+    [SerializeField] private List<Material> gateAndHoleMat;
+    [SerializeField] private List<GameObject> gatesWithHoles;
 
     private bool colorChanged;
 

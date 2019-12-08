@@ -8,7 +8,7 @@ public class GateWithHole : MonoBehaviour
     private GameObject outlining;
 
     private Vector3 endMark;
-    public float speed = 0.5F;
+    [SerializeField] private float speed = 0.5F;
     private float lerpValue = 0.0f;
 
     private bool openGate;

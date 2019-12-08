@@ -10,7 +10,6 @@ public class CheckColLadder : MonoBehaviour
     private void OnTriggerStay (Collider other) {
         if (other.CompareTag("Player")) {
             if (Input.GetKeyDown(KeyCode.E)) {
-                Debug.Log ("pickup");
                 pickUpLadder = true;
             }
         }

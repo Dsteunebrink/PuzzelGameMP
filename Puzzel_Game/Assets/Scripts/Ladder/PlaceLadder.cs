@@ -46,11 +46,9 @@ public class PlaceLadder : MonoBehaviour
 
     private void OnTriggerExit (Collider other) {
         if (other.gameObject.layer == 11) {
-            if (noLadders == false) {
-                inside = false;
-                ghostClimbLadder.SetActive (false);
-                block = null;
-            }
+            inside = false;
+            ghostClimbLadder.SetActive (false);
+            block = null;
         }
     }
 }

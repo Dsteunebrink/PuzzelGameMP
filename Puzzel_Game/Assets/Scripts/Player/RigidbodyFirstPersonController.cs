@@ -98,7 +98,7 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
         RevertPushCubeBorderPosZ = new Vector3 (0,0,0.1f);
         RevertPushCubeBorderPosX = new Vector3 (0.1f, 0, 0);
 
-        if (SceneManager.GetActiveScene().name != "Level1") {
+        if (SceneManager.GetActiveScene().name != "Level_1") {
             // Find the object of the cube in the scene
             pushCubeBorder = GameObject.Find ("PushCubeBorders").GetComponent<PushCubeBorder> ();
         }
@@ -475,7 +475,7 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
         if (hit.moveDirection.y < -0.3f)
             return;
 
-        if (hit.gameObject.CompareTag("PushCube")) {
+        if (hit.gameObject.CompareTag("PushCube") || hit.gameObject.CompareTag ("Schans")) {
 
             // Calculate push direction from move direction,
             // we only push objects to the sides never up and down
@@ -490,7 +490,6 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
             body.velocity = pushDir * pushPower;
         }else if (hit.gameObject.CompareTag("PushCubeBorder")) {
             if (pushCubeBorder.moveX == true) {
-
                 // Calculate push direction from move direction,
                 // we only push objects to the sides never up and down
                 Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, 0);
@@ -503,7 +502,6 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
                 // Apply the push
                 body.velocity = pushDir * pushPower;
             } else if (pushCubeBorder.moveZ == true) {
-
                 // Calculate push direction from move direction,
                 // we only push objects to the sides never up and down
                 Vector3 pushDir = new Vector3 (0, 0, hit.moveDirection.z);
