@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
         levelPanel = GameObject.Find ("LevelPanel");
 
         creditsPanel.SetActive (false);
-        optionsPanel.SetActive (false);
+        //optionsPanel.SetActive (false);
         levelPanel.SetActive (false);
     }
 
