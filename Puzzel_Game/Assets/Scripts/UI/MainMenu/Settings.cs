@@ -14,7 +14,7 @@ public class Settings : MonoBehaviour
 
     // Start is called before the first frame update
     void Start () {
-        //FillResolutionDrowDown ();
+        FillResolutionDrowDown ();
     }
 
     public void SetSoundFX (float soundEffects) {
@@ -29,7 +29,7 @@ public class Settings : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
-    /*public void SetResolution (int resolutionIndex) {
+    public void SetResolution (int resolutionIndex) {
         Debug.Log (resolutionIndex);
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution (resolution.width, resolution.height, Screen.fullScreen);
@@ -37,7 +37,7 @@ public class Settings : MonoBehaviour
 
     private void FillResolutionDrowDown () {
         resolutions = Screen.resolutions;
-        //resolutionDropdown.ClearOptions ();
+        resolutionDropdown.ClearOptions ();
         List<string> options = new List<string> ();
         int currentResolutionIndex = 0;
         for (int i = 0; i < resolutions.Length; i++) {
@@ -51,5 +51,5 @@ public class Settings : MonoBehaviour
         resolutionDropdown.AddOptions (options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue ();
-    }*/
+    }
 }
