@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class GetLevel : MonoBehaviour
@@ -19,5 +20,6 @@ public class GetLevel : MonoBehaviour
 
     public void GetLevelFromButton () {
         levelName = "/MP_PuzzelGame/Puzzel_Game/Assets/Levels!" + EventSystem.current.currentSelectedGameObject.name;
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
     }
 }
