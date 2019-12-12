@@ -15,7 +15,7 @@ public class LevelMan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        path = "/MP_PuzzelGame/Puzzel_Game/Assets/Levels!";
+        path = Application.dataPath + "/Levels!";
         foreach (string file in System.IO.Directory.GetFiles (path)) {
             int i = 0;
             if (file.Split ('.').Length == 2) {

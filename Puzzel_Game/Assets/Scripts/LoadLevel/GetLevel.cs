@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class GetLevel : MonoBehaviour
 {
-    private string levelName;
+    public string levelName;
 
     // Start is called before the first frame update
     void Start () {
@@ -19,7 +19,7 @@ public class GetLevel : MonoBehaviour
     }
 
     public void GetLevelFromButton () {
-        levelName = "/MP_PuzzelGame/Puzzel_Game/Assets/Levels!" + EventSystem.current.currentSelectedGameObject.name;
+        levelName = Application.dataPath + "/Levels!" + EventSystem.current.currentSelectedGameObject.name;
         SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
     }
 }
