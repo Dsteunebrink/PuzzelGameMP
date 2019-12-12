@@ -18,24 +18,28 @@ public class LevelMan : MonoBehaviour
         foreach (string file in System.IO.Directory.GetFiles (path)) {
             int i = 0;
             if (file.Split ('.').Length == 2) {
-                Debug.Log (file);
                 buttonText[i].text = file.Split('!')[1];
+                buttonText[i].transform.parent.name = file.Split ('!')[1];
                 buttonText.RemoveAt (i);
-                i++;
-                if (i == System.IO.Directory.GetFiles (path).Length / 2) {
-                    done = true;
-                }
             }
         }
+        done = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        DeleteNonUsedButtons ();
+    }
+
+    private void DeleteNonUsedButtons () {
         if (done) {
-            for (int i = 0; buttonText.Count < i; i++) {
-                Destroy (buttonText[i].gameObject);
+            for (int i = 0; buttonText.Count > i; i++) {
+                Destroy (buttonText[i].transform.parent.gameObject);
                 buttonText.RemoveAt (i);
+                if (buttonText.Count == 0) {
+                    Destroy (this);
+                }
             }
         }
     }
