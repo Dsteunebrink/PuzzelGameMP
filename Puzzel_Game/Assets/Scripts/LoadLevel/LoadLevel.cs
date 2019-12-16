@@ -23,7 +23,7 @@ public class LoadLevel : MonoBehaviour
         levelToLoad = File.ReadAllText (levelPath);
         currentObject = JsonUtility.FromJson<GetObjects> (levelToLoad);
 
-        Debug.Log (currentObject.objects.Lengths);
+        Debug.Log (currentObject.objects.Length);
     }
 
     [System.Serializable]
