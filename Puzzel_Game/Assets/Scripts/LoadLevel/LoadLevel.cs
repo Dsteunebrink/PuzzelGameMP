@@ -9,6 +9,8 @@ public class LoadLevel : MonoBehaviour
     private GetLevel getLevel;
     private string levelPath;
 
+    private GetObjects currentObject;
+
     private string levelToLoad;
 
     // Start is called before the first frame update
@@ -19,13 +21,23 @@ public class LoadLevel : MonoBehaviour
         Destroy (getLevel.gameObject);
 
         levelToLoad = File.ReadAllText (levelPath);
+        currentObject = JsonUtility.FromJson<GetObjects> (levelToLoad);
 
-        Debug.Log (levelToLoad);
+        Debug.Log (currentObject.objects.Lengths);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    [System.Serializable]
+    public class GetObjects {
+
+        [System.Serializable]
+        public class GetObjectData {
+            public string id;
+            public int value;
+            public string link;
+        }
+
+        public GetObjectData[] objects;
     }
+
+
 }
