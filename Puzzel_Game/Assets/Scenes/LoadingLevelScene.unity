@@ -149,6 +149,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd7f89f0ee742d49bd54c2e4556e98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnableObjects:
+  - {fileID: 2887880064999664530, guid: 09e5f9828f820f64da53ecd266db04c4, type: 3}
+  - {fileID: 672852709305493232, guid: 46d7b1ca9f86e054ebd546e013ed43b4, type: 3}
+  - {fileID: 2213495810945364557, guid: 698d98cbd3f8d714ba1d8bb2469fd092, type: 3}
+  - {fileID: 3346341304818159796, guid: c0d7d082018867944b236721334e79aa, type: 3}
+  - {fileID: 1317756191922400220, guid: cdf3142fa45fbce4bbe9e4e92722f8b2, type: 3}
+  - {fileID: 4815074882107408264, guid: 89d61aa97918dfa48a9761455c3872d1, type: 3}
+  - {fileID: 1907693526638325051, guid: ff80b28cb47acb5459f017f6e7fb3afb, type: 3}
+  - {fileID: 8104791733635947477, guid: 9fac0dae335c43b498ae021f88993c6b, type: 3}
+  - {fileID: 9182246840308414996, guid: ad48d649180a4994c9d6a5305ff7b7d0, type: 3}
+  - {fileID: 2368076963252945898, guid: 76c555720e1bcdf42b2c90eacb3f6346, type: 3}
+  - {fileID: 5607841564074188992, guid: df4b5663d514e954dbcf4e781645dff7, type: 3}
+  - {fileID: 2526132576141275347, guid: f2006a1fea9b8e84fa1eac62224de0b4, type: 3}
+  - {fileID: 6752026112393524471, guid: 7fc3a0c65d549ad46ba0baff8dc0dd8e, type: 3}
+  - {fileID: 3402903429000792881, guid: e4c29bfe79f6e7b429715a69637bed5e, type: 3}
+  - {fileID: 1763798077120053559, guid: 4be8acf43cc7e2c4b9ad6464eec9dba1, type: 3}
+  - {fileID: 6434184365186827248, guid: a7d8f796bfddd174f885c13fb6dc26fa, type: 3}
 --- !u!4 &23610731
 Transform:
   m_ObjectHideFlags: 0

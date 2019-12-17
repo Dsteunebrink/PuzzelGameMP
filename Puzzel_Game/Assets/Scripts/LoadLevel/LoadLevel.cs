@@ -21,6 +21,8 @@ public class LoadLevel : MonoBehaviour
     private Vector3 spawnPos;
     private Vector3 moveTile;
     private Vector3 moveRow;
+
+    [SerializeField] private List<GameObject> spawnableObjects;
     
     private bool gridDone;
     //-------------------------------------
@@ -73,6 +75,7 @@ public class LoadLevel : MonoBehaviour
                 this.transform.position = beginPos + moveRow;
                 beginPos = this.transform.position;
             } else {
+                Instantiate (spawnableObjects[0], this.transform.position, Quaternion.identity);
                 this.transform.position += moveTile;
             }
             if (i == 28) {
