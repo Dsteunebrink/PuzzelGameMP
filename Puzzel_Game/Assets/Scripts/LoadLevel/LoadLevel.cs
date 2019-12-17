@@ -87,6 +87,10 @@ public class LoadLevel : MonoBehaviour
     }
 
     private void IdToObject (int gridNumber) {
+        if (currentObject.objects[gridNumber].link != "") {
+            
+        }
+
         if (currentObject.objects[gridNumber].id >= 100) {
             currentObject.objects[gridNumber].id -= 100;
         }
@@ -98,6 +102,5 @@ public class LoadLevel : MonoBehaviour
             Instantiate (spawnableObjects[1], this.transform.position, Quaternion.identity);
             Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveUp, Quaternion.identity);
         }
-        
     }
 }
