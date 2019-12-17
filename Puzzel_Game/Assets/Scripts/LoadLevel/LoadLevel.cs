@@ -21,6 +21,7 @@ public class LoadLevel : MonoBehaviour
     private Vector3 spawnPos;
     private Vector3 moveTile;
     private Vector3 moveRow;
+    private Vector3 moveUp;
 
     [SerializeField] private List<GameObject> spawnableObjects;
     
@@ -44,7 +45,14 @@ public class LoadLevel : MonoBehaviour
         beginPos = this.transform.position;
         moveTile = new Vector3 (0, 0, 6);
         moveRow = new Vector3 (6, 0, 0);
+        moveUp = new Vector3 (0, 6, 0);
         //-------------------------------------
+    }
+
+    private void Update () {
+        if (gridDone == false) {
+            GenerateGrid ();
+        }
     }
 
     [System.Serializable]
@@ -55,18 +63,12 @@ public class LoadLevel : MonoBehaviour
 
             public int Nextline;
 
-            public string id;
+            public int id;
             public int value;
             public string link;
         }
 
         public GetObjectData[] objects;
-    }
-
-    private void Update () {
-        if (gridDone == false) {
-            GenerateGrid ();
-        }
     }
 
     private void GenerateGrid () {
@@ -75,12 +77,27 @@ public class LoadLevel : MonoBehaviour
                 this.transform.position = beginPos + moveRow;
                 beginPos = this.transform.position;
             } else {
-                Instantiate (spawnableObjects[0], this.transform.position, Quaternion.identity);
+                IdToObject (i);
                 this.transform.position += moveTile;
             }
             if (i == 28) {
                 gridDone = true;
             }
         }
+    }
+
+    private void IdToObject (int gridNumber) {
+        if (currentObject.objects[gridNumber].id >= 100) {
+            currentObject.objects[gridNumber].id -= 100;
+        }
+        if (currentObject.objects[gridNumber].id == 0) {
+            return;
+        } else if (currentObject.objects[gridNumber].id == 1) {
+            Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position, Quaternion.identity);
+        } else {
+            Instantiate (spawnableObjects[1], this.transform.position, Quaternion.identity);
+            Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveUp, Quaternion.identity);
+        }
+        
     }
 }

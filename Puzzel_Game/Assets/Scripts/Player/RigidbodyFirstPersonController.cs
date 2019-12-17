@@ -98,10 +98,10 @@ public class RigidbodyFirstPersonController : MonoBehaviour {
         RevertPushCubeBorderPosZ = new Vector3 (0,0,0.1f);
         RevertPushCubeBorderPosX = new Vector3 (0.1f, 0, 0);
 
-        if (SceneManager.GetActiveScene().name != "Level_1") {
+        //if (SceneManager.GetActiveScene().name != "Level_1") {
             // Find the object of the cube in the scene
-            pushCubeBorder = GameObject.Find ("PushCubeBorders").GetComponent<PushCubeBorder> ();
-        }
+        //    pushCubeBorder = GameObject.Find ("PushCubeBorders").GetComponent<PushCubeBorder> ();
+        //}
 
         // Set how the interval between steps
         m_StepInterval = 5f;

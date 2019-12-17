@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3346341304818159753}
   - component: {fileID: 3346341304818159798}
   - component: {fileID: 3974523670952623624}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PushCube
   m_TagString: PushCube
   m_Icon: {fileID: 0}
