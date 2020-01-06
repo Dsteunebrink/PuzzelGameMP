@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5607841564074188992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5607841564074188994}
+  - component: {fileID: 5607841564074188993}
+  m_Layer: 0
+  m_Name: GateManager 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5607841564074188994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5607841564074188992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 164.01912, y: -13.278252, z: 517.9884}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5607841564074188993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5607841564074188992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3101a5872c368144492892ec8fd2c06f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gateAndHoleMat:
+  - {fileID: 2100000, guid: 21f312eb8bfb3f74e9b80099110ec7f7, type: 2}
+  - {fileID: 2100000, guid: b785187b0d12612498c22446f23f3aac, type: 2}
+  - {fileID: 2100000, guid: 217c584d1a1d24b419f4058c17f2348a, type: 2}
+  - {fileID: 2100000, guid: 600c2936c6043724c98f504128d25a77, type: 2}
+  - {fileID: 2100000, guid: 0672b6e17d80fde47b0f29898972dd66, type: 2}
+  gatesWithHoles: []

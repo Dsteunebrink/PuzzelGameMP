@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-
     private GameObject creditsPanel;
     private GameObject optionsPanel;
     private GameObject mainPanel;
