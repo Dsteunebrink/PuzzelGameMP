@@ -149,6 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd7f89f0ee742d49bd54c2e4556e98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkPrefabs:
+  - {fileID: 1907693526638325051, guid: 41e3c03eb46fd5a49aad2b98d3bad43d, type: 3}
+  - {fileID: 8104791733635947477, guid: b77fe9fa9a20b224fb9b6ed5b890e6ed, type: 3}
+  - {fileID: 9182246840308414996, guid: f3a4ead20115d3e4ebf7f5fb5dd9bee0, type: 3}
+  - {fileID: 2368076963252945898, guid: 11947cf201e98c2439fe0cb9181bdc92, type: 3}
+  - {fileID: 1317756191922400220, guid: 3a7cbdc36249ebf4d85f85dead49971c, type: 3}
+  - {fileID: 3402903429000792881, guid: e5b8c3470fa0ec247abe0651317d56ea, type: 3}
+  - {fileID: 6434184365186827248, guid: 260a3b340275210488caa60aaba400bd, type: 3}
   linkObjects: []
   linkIDs: []
   spawnableObjects:

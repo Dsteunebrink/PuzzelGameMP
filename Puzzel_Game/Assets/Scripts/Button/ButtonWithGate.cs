@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ButtonWithGate : MonoBehaviour
 {
-    private GameObject gate;
-    private GameObject Button;
+    public GameObject gate;
+    public GameObject Button;
 
     private Vector3 closed;
     private Vector3 open;
@@ -29,6 +29,11 @@ public class ButtonWithGate : MonoBehaviour
     // Update is called once per frame
     void Update () {
         OpenGate ();
+    }
+
+    public void SetGateAndButton () {
+        open = gate.transform.position - new Vector3 (0, 6, 0);
+        closed = gate.transform.position;
     }
 
     private void OpenGate () {

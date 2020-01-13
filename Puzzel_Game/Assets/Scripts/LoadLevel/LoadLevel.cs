@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoadLevel : MonoBehaviour
 {
-
+    [SerializeField] private List<GameObject> linkPrefabs;
     [SerializeField] private List<GameObject> linkObjects;
     [SerializeField] private List<string> linkIDs;
 
@@ -17,6 +17,10 @@ public class LoadLevel : MonoBehaviour
     private bool Hole;
     private bool MoveEndPos;
     private bool MoveBeginPos;
+    private bool BeginPos;
+    private bool EndPos;
+    private bool Teleport1;
+    private bool Teleport2;
 
     private int linkID1;
     private int linkID2;
@@ -33,11 +37,18 @@ public class LoadLevel : MonoBehaviour
 
     //Spawning cube variables
     //-------------------------------------
+    private Quaternion gateRot;
+
     private Vector3 beginPos;
     private Vector3 spawnPos;
     private Vector3 moveTile;
     private Vector3 moveRow;
     private Vector3 moveUp;
+    private Vector3 moveUpHalved;
+    private Vector3 moveDown;
+    private Vector3 moveDownHalved;
+
+    private GameObject tempObject;
 
     [SerializeField] private List<GameObject> spawnableObjects;
     
@@ -60,10 +71,15 @@ public class LoadLevel : MonoBehaviour
 
         //Spawning cube variables
         //-------------------------------------
+        gateRot = new Quaternion (0,0,90,0);
+
         beginPos = this.transform.position;
         moveTile = new Vector3 (0, 0, 6);
         moveRow = new Vector3 (6, 0, 0);
         moveUp = new Vector3 (0, 6, 0);
+        moveUpHalved = new Vector3 (0, 2, 0);
+        moveDown = new Vector3 (0, -6, 0);
+        moveDownHalved = new Vector3 (0, -2, 0);
         //-------------------------------------
     }
 
@@ -111,18 +127,24 @@ public class LoadLevel : MonoBehaviour
             currentObject.objects[gridNumber].id -= 100;
         }
 
-        if (currentObject.objects[gridNumber].link != "") {
-            linkIDs.Add (currentObject.objects[gridNumber].link);
-            linkObjects.Add (spawnableObjects[currentObject.objects[gridNumber].id]);
-        }
-
         if (currentObject.objects[gridNumber].id == 0) {
             return;
         } else if (currentObject.objects[gridNumber].id == 1) {
             Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position, Quaternion.identity);
         } else {
             Instantiate (spawnableObjects[1], this.transform.position, Quaternion.identity);
-            Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveUp, Quaternion.identity);
+            if (spawnableObjects[currentObject.objects[gridNumber].id].name == "Button") {
+                tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveDownHalved, Quaternion.identity);
+            } else if (spawnableObjects[currentObject.objects[gridNumber].id].name == "Gate") {
+                tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveUp, spawnableObjects[currentObject.objects[gridNumber].id].transform.rotation);
+            } else {
+                tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveUp, Quaternion.identity);
+            }
+
+            if (currentObject.objects[gridNumber].link != "") {
+                linkIDs.Add (currentObject.objects[gridNumber].link);
+                linkObjects.Add (tempObject);
+            }
         }
     }
 
@@ -131,10 +153,10 @@ public class LoadLevel : MonoBehaviour
             for (int e = 0; i < linkIDs.Count; e++) {
                 if (e != i) {
                     if (linkIDs[e] == linkIDs[i]) {
-                        Debug.Log (linkIDs[e] + linkIDs[i]);
+                        Debug.Log (linkObjects[i]);
+                        spawnLinks (linkObjects[e], linkObjects[i], e, i);
                         linkIDs.Remove (linkIDs[e]);
                         linkIDs.Remove (linkIDs[i]);
-                        spawnLinks (linkObjects[e], linkObjects[i], e, i);
                         return;
                     }
                 }
@@ -143,68 +165,134 @@ public class LoadLevel : MonoBehaviour
     }
 
     private void spawnLinks (GameObject linkObject1, GameObject linkObject2, int linkID1, int linkID2) {
-        linkObjects.Remove (linkObjects[linkID1]);
-        linkObjects.Remove (linkObjects[linkID2]);
 
-        if (linkObject1.name == "Button") {
+        if (linkObject1.name == "Button(Clone)") {
             Button = true;
             Debug.Log ("Button");
-        }else if (linkObject1.name == "Gate") {
+        }else if (linkObject1.name == "Gate(Clone)") {
             Gate = true;
             Debug.Log ("Gate");
-        } else if (linkObject1.name == "Cube") {
+        } else if (linkObject1.name == "Cube(Clone)") {
             Cube = true;
             Debug.Log ("Cube");
-        } else if (linkObject1.name == "Cross") {
+        } else if (linkObject1.name == "Cross(Clone)") {
             Cross = true;
             Debug.Log ("Cross");
-        } else if (linkObject1.name == "CheckPointBegin") {
+        } else if (linkObject1.name == "CheckPointBegin(Clone)") {
             CheckPointBegin = true;
             Debug.Log ("CheckPointBegin");
-        } else if (linkObject1.name == "CheckPointEnd") {
+        } else if (linkObject1.name == "CheckPointEnd(Clone)") {
             CheckPointEnd = true;
             Debug.Log ("CheckPointEnd");
-        } else if (linkObject1.name == "Hole") {
+        } else if (linkObject1.name == "Hole(Clone)") {
             Hole = true;
             Debug.Log ("Hole");
-        } else if (linkObject1.name == "MoveEndPos") {
+        } else if (linkObject1.name == "MoveEndPos(Clone)") {
             MoveEndPos = true;
             Debug.Log ("MoveEndPos");
-        } else if (linkObject1.name == "MoveBeginPos") {
+        } else if (linkObject1.name == "MoveBeginPos(Clone)") {
             MoveBeginPos = true;
             Debug.Log ("MoveBeginPos");
+        } else if (linkObject1.name == "BeginPos(Clone)") {
+            BeginPos = true;
+            Debug.Log ("BeginPos");
+        } else if (linkObject1.name == "EndPos(Clone)") {
+            EndPos = true;
+            Debug.Log ("EndPos");
+        } else if (linkObject1.name == "Teleport1(Clone)") {
+            Teleport1 = true;
+            Debug.Log ("Teleport1");
+        } else if (linkObject1.name == "Teleport2(Clone)") {
+            Teleport2 = true;
+            Debug.Log ("Teleport2");
         }
 
-        if (linkObject2.name == "Button") {
+        if (linkObject2.name == "Button(Clone)") {
             Button = true;
             Debug.Log ("Button");
-        } else if (linkObject2.name == "Gate") {
+        } else if (linkObject2.name == "Gate(Clone)") {
             Gate = true;
             Debug.Log ("Gate");
-        } else if (linkObject2.name == "Cube") {
+        } else if (linkObject2.name == "Cube(Clone)") {
             Cube = true;
             Debug.Log ("Cube");
-        } else if (linkObject2.name == "Cross") {
+        } else if (linkObject2.name == "Cross(Clone)") {
             Cross = true;
             Debug.Log ("Cross");
-        } else if (linkObject2.name == "CheckPointBegin") {
+        } else if (linkObject2.name == "CheckPointBegin(Clone)") {
             CheckPointBegin = true;
             Debug.Log ("CheckPointBegin");
-        } else if (linkObject2.name == "CheckPointEnd") {
+        } else if (linkObject2.name == "CheckPointEnd(Clone)") {
             CheckPointEnd = true;
             Debug.Log ("CheckPointEnd");
-        } else if (linkObject2.name == "Hole") {
+        } else if (linkObject2.name == "Hole(Clone)") {
             Hole = true;
             Debug.Log ("Hole");
-        } else if (linkObject2.name == "MoveEndPos") {
+        } else if (linkObject2.name == "MoveEndPos(Clone)") {
             MoveEndPos = true;
             Debug.Log ("MoveEndPos");
-        } else if (linkObject2.name == "MoveBeginPos") {
+        } else if (linkObject2.name == "MoveBeginPos(Clone)") {
             MoveBeginPos = true;
             Debug.Log ("MoveBeginPos");
+        } else if (linkObject2.name == "BeginPos(Clone)") {
+            BeginPos = true;
+            Debug.Log ("BeginPos");
+        } else if (linkObject2.name == "EndPos(Clone)") {
+            EndPos = true;
+            Debug.Log ("EndPos");
+        } else if (linkObject2.name == "Teleport1(Clone)") {
+            Teleport1 = true;
+            Debug.Log ("Teleport1");
+        } else if (linkObject2.name == "Teleport2(Clone)") {
+            Teleport2 = true;
+            Debug.Log ("Teleport2");
         }
+
+        /*
+         * 0 - ButtonSpawnCube
+         * 1 - ButtonWithCube
+         * 2 - ButtonWithGate
+         * 3 - CheckPoint
+         * 4 - PushCubeWithBorders
+         * 5 - MovingPlatform
+         * 6 - TeleportManager
+        */
 
         if (Button && Gate) {
+            GameObject tempMan = Instantiate<GameObject> (linkPrefabs[2], new Vector3(0,0,0), Quaternion.identity) as GameObject;
+            if (linkObject1.name == "Button") {
+                tempMan.transform.position = linkObject1.transform.position;
+                linkObject1.transform.SetParent (tempMan.transform);
+                linkObject2.transform.SetParent (tempMan.transform);
+                tempMan.GetComponent<ButtonWithGate> ().Button = linkObject1;
+                tempMan.GetComponent<ButtonWithGate> ().gate = linkObject2;
+                tempMan.GetComponent<ButtonWithGate> ().SetGateAndButton ();
+            } else {
+                tempMan.transform.position = linkObject2.transform.position;
+                linkObject1.transform.SetParent (tempMan.transform);
+                linkObject2.transform.SetParent (tempMan.transform);
+                tempMan.GetComponent<ButtonWithGate> ().gate = linkObject1;
+                tempMan.GetComponent<ButtonWithGate> ().Button = linkObject2;
+                tempMan.GetComponent<ButtonWithGate> ().SetGateAndButton ();
+            }
+            Debug.Log ("Link the items");
+        }else if (Button && Cube) {
+
+        } else if (Button && Cross) {
+
+        } else if (CheckPointBegin && CheckPointEnd) {
+
+        } else if (Hole && Gate) {
+
+        } else if (MoveBeginPos && MoveEndPos) {
+
+        } else if (BeginPos && EndPos) {
+
+        } else if (Teleport1 && Teleport2) {
+
         }
+
+        //linkObjects.Remove (linkObjects[linkID1]);
+        //linkObjects.Remove (linkObjects[linkID2]);
     }
 }
