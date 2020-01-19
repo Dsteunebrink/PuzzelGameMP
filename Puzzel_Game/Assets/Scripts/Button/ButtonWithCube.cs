@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonWithCube : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class ButtonWithCube : MonoBehaviour
     private bool goDown;
     private bool goUp;
 
-    private GameObject Cube;
+    public GameObject Cube;
 
     private float speed;
     private float resetLerpValue;
@@ -22,8 +23,20 @@ public class ButtonWithCube : MonoBehaviour
 
     // Start is called before the first frame update
     void Start () {
-        Cube = this.transform.Find ("Cube").gameObject;
+        if (SceneManager.GetActiveScene ().name != "LoadingLevelScene") {
+            Cube = this.transform.Find ("Cube").gameObject;
 
+            startPos = Cube.transform.position;
+
+            resetLerpValue = 0.0f;
+            lerpValue = 0.0f;
+            speed = 0.5f;
+
+            moveYVector = new Vector3 (0, 6, 0);
+        }
+    }
+
+    public void SetStartPos () {
         startPos = Cube.transform.position;
 
         resetLerpValue = 0.0f;

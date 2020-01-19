@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonSpawnsCube : MonoBehaviour
 {
@@ -12,6 +13,13 @@ public class ButtonSpawnsCube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene ().name != "LoadingLevelScene") {
+            spawnPos = this.transform.Find ("Cross").position;
+            Destroy (GameObject.Find ("Cross"));
+        }
+    }
+
+    public void SetSpawn () {
         spawnPos = this.transform.Find ("Cross").position;
         Destroy (GameObject.Find ("Cross"));
     }

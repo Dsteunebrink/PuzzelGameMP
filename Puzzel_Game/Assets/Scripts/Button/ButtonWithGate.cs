@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonWithGate : MonoBehaviour
 {
@@ -17,13 +18,15 @@ public class ButtonWithGate : MonoBehaviour
 
     // Start is called before the first frame update
     void Start () {
-        gate = this.transform.Find ("Gate").gameObject;
-        open = gate.transform.position - new Vector3 (0, 6, 0);
-        closed = gate.transform.position;
+        if (SceneManager.GetActiveScene().name != "LoadingLevelScene") {
+            gate = this.transform.Find ("Gate").gameObject;
+            open = gate.transform.position - new Vector3 (0, 6, 0);
+            closed = gate.transform.position;
 
-        resetLerpValue = 0.0f;
+            resetLerpValue = 0.0f;
 
-        Button = this.transform.Find ("Button").gameObject;
+            Button = this.transform.Find ("Button").gameObject;
+        }
     }
 
     // Update is called once per frame

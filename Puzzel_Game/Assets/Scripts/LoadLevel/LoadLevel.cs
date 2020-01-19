@@ -8,6 +8,8 @@ public class LoadLevel : MonoBehaviour
     [SerializeField] private List<GameObject> linkObjects;
     [SerializeField] private List<string> linkIDs;
 
+    private bool LinkingDone;
+
     private bool Button;
     private bool Gate;
     private bool Cube;
@@ -98,6 +100,7 @@ public class LoadLevel : MonoBehaviour
         public class GetObjectData {
 
             public int Nextline;
+            public int StopGrid;
 
             public int id;
             public int value;
@@ -112,12 +115,12 @@ public class LoadLevel : MonoBehaviour
             if (currentObject.objects[i].Nextline == -1) {
                 this.transform.position = beginPos + moveRow;
                 beginPos = this.transform.position;
+            } else if (currentObject.objects[i].StopGrid == -1) {
+                Debug.Log ("end");
+                gridDone = true;
             } else {
                 IdToObject (i);
                 this.transform.position += moveTile;
-            }
-            if (i == 28) {
-                gridDone = true;
             }
         }
     }
@@ -127,10 +130,20 @@ public class LoadLevel : MonoBehaviour
             currentObject.objects[gridNumber].id -= 100;
         }
 
-        if (currentObject.objects[gridNumber].id == 0) {
+        if (currentObject.objects[gridNumber].id == 101) {
+            currentObject.objects[gridNumber].id -= 100;
+            tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position, Quaternion.identity);
+            tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveUp, Quaternion.identity);
+            return;
+        }else if (currentObject.objects[gridNumber].id == 0) {
+            tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position + moveDown, Quaternion.identity);
             return;
         } else if (currentObject.objects[gridNumber].id == 1) {
-            Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position, Quaternion.identity);
+            tempObject = Instantiate (spawnableObjects[currentObject.objects[gridNumber].id], this.transform.position, Quaternion.identity);
+            if (currentObject.objects[gridNumber].link != "") {
+                linkIDs.Add (currentObject.objects[gridNumber].link);
+                linkObjects.Add (tempObject);
+            }
         } else {
             Instantiate (spawnableObjects[1], this.transform.position, Quaternion.identity);
             if (spawnableObjects[currentObject.objects[gridNumber].id].name == "Button") {
@@ -149,15 +162,14 @@ public class LoadLevel : MonoBehaviour
     }
 
     private void checkLinks () {
-        for (int i = 0; i < linkIDs.Count; i++) {
-            for (int e = 0; i < linkIDs.Count; e++) {
-                if (e != i) {
-                    if (linkIDs[e] == linkIDs[i]) {
-                        Debug.Log (linkObjects[i]);
-                        spawnLinks (linkObjects[e], linkObjects[i], e, i);
-                        linkIDs.Remove (linkIDs[e]);
-                        linkIDs.Remove (linkIDs[i]);
-                        return;
+        if (LinkingDone == false) {
+            for (int i = 0; i < linkIDs.Count; i++) {
+                for (int e = 0; i < linkIDs.Count; e++) {
+                    if (e != i) {
+                        if (linkIDs[e] == linkIDs[i]) {
+                            spawnLinks (linkObjects[e], linkObjects[i], e, i);
+                            return;
+                        }
                     }
                 }
             }
@@ -165,14 +177,13 @@ public class LoadLevel : MonoBehaviour
     }
 
     private void spawnLinks (GameObject linkObject1, GameObject linkObject2, int linkID1, int linkID2) {
-
         if (linkObject1.name == "Button(Clone)") {
             Button = true;
             Debug.Log ("Button");
         }else if (linkObject1.name == "Gate(Clone)") {
             Gate = true;
             Debug.Log ("Gate");
-        } else if (linkObject1.name == "Cube(Clone)") {
+        } else if (linkObject1.name == "StaticCube(Clone)") {
             Cube = true;
             Debug.Log ("Cube");
         } else if (linkObject1.name == "Cross(Clone)") {
@@ -213,7 +224,7 @@ public class LoadLevel : MonoBehaviour
         } else if (linkObject2.name == "Gate(Clone)") {
             Gate = true;
             Debug.Log ("Gate");
-        } else if (linkObject2.name == "Cube(Clone)") {
+        } else if (linkObject2.name == "StaticCube(Clone)") {
             Cube = true;
             Debug.Log ("Cube");
         } else if (linkObject2.name == "Cross(Clone)") {
@@ -260,26 +271,55 @@ public class LoadLevel : MonoBehaviour
 
         if (Button && Gate) {
             GameObject tempMan = Instantiate<GameObject> (linkPrefabs[2], new Vector3(0,0,0), Quaternion.identity) as GameObject;
-            if (linkObject1.name == "Button") {
-                tempMan.transform.position = linkObject1.transform.position;
+            if (linkObject1.name == "Button(Clone)") {
+                tempMan.GetComponent<BoxCollider> ().center = linkObject1.transform.position + moveUp;
                 linkObject1.transform.SetParent (tempMan.transform);
                 linkObject2.transform.SetParent (tempMan.transform);
                 tempMan.GetComponent<ButtonWithGate> ().Button = linkObject1;
                 tempMan.GetComponent<ButtonWithGate> ().gate = linkObject2;
                 tempMan.GetComponent<ButtonWithGate> ().SetGateAndButton ();
             } else {
-                tempMan.transform.position = linkObject2.transform.position;
+                tempMan.GetComponent<BoxCollider> ().center = linkObject2.transform.position + moveUp;
                 linkObject1.transform.SetParent (tempMan.transform);
                 linkObject2.transform.SetParent (tempMan.transform);
                 tempMan.GetComponent<ButtonWithGate> ().gate = linkObject1;
                 tempMan.GetComponent<ButtonWithGate> ().Button = linkObject2;
                 tempMan.GetComponent<ButtonWithGate> ().SetGateAndButton ();
             }
-            Debug.Log ("Link the items");
+            Button = false;
+            Gate = false;
         }else if (Button && Cube) {
-
+            GameObject tempMan = Instantiate<GameObject> (linkPrefabs[1], new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
+            if (linkObject1.name == "Button(Clone)") {
+                tempMan.GetComponent<BoxCollider> ().center = linkObject1.transform.position + moveUp;
+                linkObject1.transform.SetParent (tempMan.transform);
+                linkObject2.transform.SetParent (tempMan.transform);
+                tempMan.GetComponent<ButtonWithCube> ().Cube = linkObject2;
+                tempMan.GetComponent<ButtonWithCube> ().SetStartPos ();
+            } else {
+                tempMan.GetComponent<BoxCollider> ().center = linkObject2.transform.position + moveUp;
+                linkObject1.transform.SetParent (tempMan.transform);
+                linkObject2.transform.SetParent (tempMan.transform);
+                tempMan.GetComponent<ButtonWithCube> ().Cube = linkObject1;
+                tempMan.GetComponent<ButtonWithCube> ().SetStartPos ();
+            }
+            Button = false;
+            Cube = false;
         } else if (Button && Cross) {
-
+            GameObject tempMan = Instantiate<GameObject> (linkPrefabs[0], new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
+            if (linkObject1.name == "Button(Clone)") {
+                tempMan.GetComponent<BoxCollider> ().center = linkObject1.transform.position + moveUp;
+                linkObject1.transform.SetParent (tempMan.transform);
+                linkObject2.transform.SetParent (tempMan.transform);
+                tempMan.GetComponent<ButtonSpawnsCube> ().SetSpawn ();
+            } else {
+                tempMan.GetComponent<BoxCollider> ().center = linkObject2.transform.position + moveUp;
+                linkObject1.transform.SetParent (tempMan.transform);
+                linkObject2.transform.SetParent (tempMan.transform);
+                tempMan.GetComponent<ButtonSpawnsCube> ().SetSpawn ();
+            }
+            Button = false;
+            Cross = false;
         } else if (CheckPointBegin && CheckPointEnd) {
 
         } else if (Hole && Gate) {
@@ -292,7 +332,12 @@ public class LoadLevel : MonoBehaviour
 
         }
 
-        //linkObjects.Remove (linkObjects[linkID1]);
-        //linkObjects.Remove (linkObjects[linkID2]);
+        linkIDs.Remove (linkIDs[linkID1]);
+        linkIDs.Remove (linkIDs[linkID2]);
+        linkObjects.Remove (linkObjects[linkID1]);
+        linkObjects.Remove (linkObjects[linkID2]);
+        if (linkIDs.Count == 0) {
+            LinkingDone = true;
+        }
     }
 }
